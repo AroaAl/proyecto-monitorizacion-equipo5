@@ -1,6 +1,6 @@
-## NODE EXPORTER
+# NODE EXPORTER
 
-# ¿Qué es y para qué sirve?
+## ¿Qué es y para qué sirve?
 
 Componente del ecosistema Prometheus que sirve para recopilar métricas detalladas de hardware y SO. Aporta visibilidad profunda sobre el rendimiento de hardware y sistemas operativos. 
 Es un exporter oficial de prometheus y sirve para exponer métricas del hardware y sistemas operativo en donde está instalado
