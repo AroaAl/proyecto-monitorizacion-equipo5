@@ -73,7 +73,7 @@ Puerto por defecto "9115"
 
 ### `probe_success`
 - **Tipo:** Gauge
-- **Qué mide:** Devuelve `1` si la prueba fue exitosa, `0` si falló.
+- **Qué mide:** Devuelve `1` si la web está activa, `0` si no.
 - **Por qué es útil:** Indica si el servicio está disponible desde el exterior.
 
 ### `probe_duration_seconds`
