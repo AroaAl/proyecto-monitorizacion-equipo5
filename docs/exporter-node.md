@@ -86,25 +86,44 @@ Tipo: Counter
 Descripción: Representa el tiempo total que la CPU ha pasado en un modo específico desde que se inició el sistema.
 Uso: Como es un contador que siempre aumenta, casi nunca se usa solo. Se utiliza con la función rate() para calcular el porcentaje de uso de CPU.
 
-Fórmula común: 1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+Fórmula común: 
+
+1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+
 2. node_memory_MemTotal_bytes
+
 Tipo: Gauge 
+
 Descripción: Es un valor absoluto que representa la cantidad total de memoria física en el nodo. Aunque técnicamente es un valor que no suele cambiar (a menos que añadas RAM física o cambies la configuración de una VM), se clasifica como Gauge porque representa un "estado" o una medición instantánea, no una acumulación de eventos.
+
 Uso: Sirve como base para calcular porcentajes de uso de memoria.
+
 3. node_memory_MemAvailable_bytes
+
 Tipo: Gauge.
+
 Comportamiento: El valor fluctúa constantemente dependiendo de la carga de trabajo del sistema. Sube cuando se liberan procesos y baja cuando el sistema consume más memoria.
+
 Importancia: A diferencia de node_memory_MemFree_bytes (que solo mide la memoria que no tiene absolutamente nada), MemAvailable es más precisa para alertas, ya que estima cuánta memoria hay realmente disponible para nuevos procesos, incluyendo la memoria que se puede liberar de cachés o buffers.
-Qué mide.
+
+Mide: 
+
 El rendimiento del sistema operativo y hardware.
+
 Por qué te parece útil monitorizarla.
+
 Para evitar sobrecargas o puntos muertos.
+
 Una alerta que tendría sentido basada en una de esas métricas (en lenguaje natural, no PromQL aún): "si X supera Y durante Z minutos, avisar".
-Alerta
+
+Alerta:
 X (Métrica): La cantidad de memoria disponible (node_memory_MemAvailable_bytes).
+
 Y (Umbral): Menos del 10% del total de la memoria (node_memory_MemTotal_bytes).
+
 Z (Tiempo): Durante 5 minutos.
 
 Una limitación o cosa que NO mide este exporter.
+
 No mide nada a nivel de aplicación y ni de contenedor solo del sistema 
 
