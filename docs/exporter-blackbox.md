@@ -86,4 +86,6 @@ Puerto por defecto "9115"
 - **Qué mide:** Fecha y hora exacta en la que caduca el certificado SSL/TLS.
 - **Por qué es útil:** Evita olvidar renovar el certificado, lo que haría que los navegadores bloqueen el acceso marcando la web como "No segura".
 
----
+### Alertas
+
+Una alerta que tendría sentido basada en una de esas métricas: "Si la métrica de tiempo de respuesta total (**probe_duration_seconds**) supera los 5 segundos de forma continua durante 3 minutos, enviar una alerta de Degradación de Servicio Web."
