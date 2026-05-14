@@ -49,6 +49,8 @@ Descargamos el exporter
 ```
 wget https://github.com/google/cadvisor/releases/latest/download/cadvisor-linux-amd64
 ```
+## Node Exporter
+Se debe instalar con el comando docker run docker run -p 9113:9113 nginx/nginx-prometheus-exporter:1.5.1 --nginx.scrape-uri=http://<nginx>:8080/stub_status
 
 # Decisiones que hemos tomado
 
