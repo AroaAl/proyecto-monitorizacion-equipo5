@@ -44,6 +44,12 @@ tar -xvzf blackbox_exporter-linux-amd64.tar.gz
 cd blackbox_exporter
 ./blackbox_exporter
 ```
+## cAdvisor
+Descargamos el exporter
+```
+wget https://github.com/google/cadvisor/releases/latest/download/cadvisor-linux-amd64
+```
+
 # Decisiones que hemos tomado
 
 Hemos elegido estos exporters porque cada uno monitoriza una parte distinta del sistema:
