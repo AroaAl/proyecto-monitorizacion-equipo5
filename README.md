@@ -45,3 +45,11 @@ cd blackbox_exporter
 ./blackbox_exporter
 ```
 # Decisiones que hemos tomado
+
+Hemos elegido estos exporters porque cada uno monitoriza una parte distinta del sistema:
+
+Node Exporter → estado del sistema operativo
+Blackbox Exporter → disponibilidad de la web
+MySQL Exporter → estado de la base de datos
+cAdvisor → uso de recursos y contenedores
+Process Exporter → procesos activos
