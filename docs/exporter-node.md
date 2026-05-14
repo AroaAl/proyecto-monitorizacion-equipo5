@@ -1,24 +1,25 @@
-NODE EXPORTER
+## NODE EXPORTER
 
-¿Qué es y para qué sirve?
+#¿Qué es y para qué sirve?
+
 Componente del ecosistema Prometheus que sirve para recopilar métricas detalladas de hardware y SO. Aporta visibilidad profunda sobre el rendimiento de hardware y sistemas operativos. 
 Es un exporter oficial de prometheus y sirve para exponer métricas del hardware y sistemas operativo en donde está instalado
 ¿Cómo se instala y configura? Comandos exactos y archivo de configuración mínimo. Indica la versión.
 Paso 1: Creación del usuario de sistema
-
+``
 sudo useradd --no-create-home --shell /bin/false node_exporter
-
+``
 Paso 2: Descarga e instalación del binario
-
+``
 cd /tmp wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar xvf node_exporter-1.8.2.linux-amd64.tar.gz 
 sudo cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin/ 
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
-
+```
 Paso 3: Configuración del servicio (Systemd)
-
+```
 sudo nano /etc/systemd/system/node_exporter.service
-
+```
 Contenido del archivo:
 [Unit] 
 Description=Node Exporter
@@ -31,17 +32,17 @@ ExecStart=/usr/local/bin/node_exporter
 WantedBy=multi-user.target
 
 Paso 4: Activación del servicio
-
+```
 sudo systemctl daemon-reload 
 sudo systemctl enable --now node_exporter
-
+```
 
 Paso 5:  Configuración de Prometheus 
 
 Edición del fichero prometheus.yml
-
+```
 sudo nano /etc/prometheus/prometheus.yml
-
+```
 Editar el fichero
 
 - job_name: 'node_exporter'
@@ -52,9 +53,9 @@ Editar el fichero
           equipo: 'asir'
 
 Paso 6 : Reinicio del servidor
-
+``
 sudo systemctl restart prometheus
-
+``
 Verificación de la Infraestructura
 
 Estado del servicio: Ejecutar sudo systemctl status node_exporter. El estado debe ser activo (running).
