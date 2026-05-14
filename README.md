@@ -44,3 +44,4 @@ tar -xvzf blackbox_exporter-linux-amd64.tar.gz
 cd blackbox_exporter
 ./blackbox_exporter
 ```
+# Decisiones que hemos tomado
