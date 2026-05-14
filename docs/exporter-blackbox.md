@@ -89,3 +89,7 @@ Puerto por defecto "9115"
 ### Alertas
 
 Una alerta que tendría sentido basada en una de esas métricas: "Si la métrica de tiempo de respuesta total (**probe_duration_seconds**) supera los 5 segundos de forma continua durante 3 minutos, enviar una alerta de Degradación de Servicio Web."
+
+### Limitaciones
+
+Blackbox Exporter solo reporta el **resultado final** de la prueba. Sabe si algo falla, pero **no indica dónde está el error** dentro de la cadena de conexión (DNS, TCP, TLS, respuesta HTTP...).
