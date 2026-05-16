@@ -1,0 +1,77 @@
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+
+  # Prometheus
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["10.105.0.73:9090"]
+
+  # Node Exporter
+  - job_name: "node_exporter"
+    static_configs:
+      - targets:
+          - "10.105.0.73:9100"
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # cAdvisor
+  - job_name: "cadvisor"
+    static_configs:
+      - targets:
+          - "10.105.0.73:8080"
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # Nginx Exporter
+  - job_name: "nginx"
+    static_configs:
+      - targets:
+          - "10.105.0.73:9113"
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # MySQL Exporter
+  - job_name: "mysql"
+    static_configs:
+      - targets:
+          - "10.105.0.73:9104"
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # Blackbox Exporter
+  - job_name: "blackbox_prueba"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - "https://www.google.com"
+          - "https://www.ubuntu.com"
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: "10.105.0.73:9115"
+
+  # Process Exporter
+  - job_name: "process-exporter"
+    static_configs:
+      - targets:
+          - "10.105.0.73:9256"
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
