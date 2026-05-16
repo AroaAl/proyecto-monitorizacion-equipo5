@@ -1,14 +1,14 @@
-# Nginx Prometheus Exporter
+# NGINX Prometheus Exporter
 
 ## ¿Qué es y para qué sirve?
 
-**Nginx Exporter** recoge métricas de un servidor Nginx y las expone en un formato que herramientas como **Prometheus** puedan entender, así las recolecta y las almacena.
+Nginx Exporter recoge métricas de un servidor Nginx y las expone en un formato que herramientas como por ejemplo Prometheus puedan entender, así las recolecta y las almacena.
 
 ---
 
 ## ¿Cómo se instala y configura?
 
-### 1. Descargar e instalar el exporter
+### 1. Descargar la versión más reciente del exporter e instalarlo
 
 ```bash
 wget https://github.com/nginx/nginx-prometheus-exporter/releases/download/v1.5.1/nginx-prometheus-exporter_1.5.1_linux_amd64.tar.gz
@@ -18,9 +18,7 @@ sudo chmod +x /usr/local/bin/nginx-prometheus-exporter
 nginx-prometheus-exporter --version
 ```
 
----
-
-### 2. Habilitar `stub_status` en Nginx
+### 2. Habilitar stub_status en Nginx
 
 ```bash
 sudo tee /etc/nginx/conf.d/stub_status.conf > /dev/null <<EOF
@@ -39,21 +37,17 @@ EOF
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-#### 2.1 Verificar que responde
+#### 2.1. Verificar que responde
 
 ```bash
 curl http://127.0.0.1:8080/stub_status
 ```
 
----
-
-### 3. Crear un usuario dedicado
+### 3. Crear un usuario
 
 ```bash
 sudo useradd --no-create-home --shell /bin/false nginx_exporter
 ```
-
----
 
 ### 4. Crear el servicio systemd
 
@@ -68,8 +62,8 @@ Requires=nginx.service
 User=nginx_exporter
 Group=nginx_exporter
 ExecStart=/usr/local/bin/nginx-prometheus-exporter \
-  --nginx.scrape-uri=http://127.0.0.1:8080/stub_status \
-  --web.listen-address=:9113
+    --nginx.scrape-uri=http://127.0.0.1:8080/stub_status \
+    --web.listen-address=:9113
 Restart=always
 RestartSec=5
 
@@ -77,8 +71,6 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 ```
-
----
 
 ### 5. Arrancar y habilitar el servicio
 
@@ -89,19 +81,13 @@ sudo systemctl start nginx-prometheus-exporter
 sudo systemctl status nginx-prometheus-exporter
 ```
 
----
-
 ### 6. Verificar que expone métricas
 
 ```bash
 curl http://localhost:9113/metrics | grep nginx_
 ```
 
----
-
-### 7. Añadir el job en Prometheus
-
-Editar `/etc/prometheus/prometheus.yml` y añadir:
+### 7. Editar `/etc/prometheus/prometheus.yml` y añadir el job
 
 ```yaml
 scrape_configs:
@@ -110,9 +96,37 @@ scrape_configs:
       - targets: ["localhost:9113"]
 ```
 
-Luego reiniciar Prometheus:
-
 ```bash
 sudo systemctl restart prometheus
 sudo systemctl status prometheus
 ```
+
+---
+
+## Métricas principales
+
+### nginx_http_requests_total
+
+- **Tipo:** Counter
+- **Qué mide:** Total acumulado de peticiones HTTP recibidas.
+- **Por qué es útil:** Es el pulso del servidor. Obtienes las RPS en tiempo real, base de cualquier alerta de tráfico.
+
+### nginx_connections_active
+
+- **Tipo:** Gauge
+- **Qué mide:** Conexiones abiertas en este instante (lectura + escritura + espera).
+- **Por qué es útil:** Indica la carga viva del servidor.
+
+### nginx_ingress_controller_request_duration_seconds
+
+- **Tipo:** Histogram
+- **Qué mide:** Distribución de la latencia de las peticiones HTTP.
+- **Por qué es útil:** Es la métrica de calidad de servicio.
+
+---
+
+## Ejemplo de alerta
+
+Si la tasa de peticiones HTTP procesadas por nginx cae por debajo de un límite mínimo esperado de forma continua durante 3 minutos, se disparará una alerta de "Caída del servicio web".
+
+Esto indicaría que nginx ha dejado de recibir o procesar peticiones con normalidad, lo que puede ser síntoma de una caída del servicio, un problema de red, un reinicio inesperado del proceso o un fallo en el balanceador de carga que está dejando de enrutar tráfico hacia el servidor.
