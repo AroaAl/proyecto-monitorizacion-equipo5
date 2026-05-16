@@ -65,7 +65,37 @@ Se debe instalar con el comando docker "docker run ...":
 ```
 docker run -p 9113:9113 nginx/nginx-prometheus-exporter:1.5.1 --nginx.scrape-uri=http://<nginx>:8080/stub_status
 ```
+## Nginx
+Descargamos el exporter
+```
+wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/latest/download/nginx-prometheus-exporter_linux_amd64.tar.gz 
+```
+Descromprimimos
 
+```
+tar -xvzf nginx-prometheus-exporter_linux_amd64.tar.gz
+```
+ Ejecutamos el programa
+
+```
+./nginx-prometheus-exporter
+```
+
+## Process
+Descargamos el exporter
+```
+wget https://github.com/ncabatoff/process-exporter/releases/latest/download/process-exporter_linux_amd64.tar.gz
+```
+Descromprimimos
+
+```
+tar -xvzf process-exporter_linux_amd64.tar.gz
+```
+ Ejecutamos el programa
+
+```
+./process-exporter --config.path process-exporter.yml
+```
 
 # Decisiones que hemos tomado
 
