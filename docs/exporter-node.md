@@ -75,8 +75,7 @@ Error 203 (EXEC): El servicio no encuentra el archivo ejecutable. Se soluciona v
 El puerto al que expone métricas es el por defecto: 9100 y es configurable.
 
 Las tres métricas relevantes que ofrece:
-``` node_cpu_seconds_total 
-```
+```node_cpu_seconds_total```
 ``` node_memory_MemAvailable_bytes ```
 ``` node_memory_MemTotal_bytes ```
 ## Tipo (counter / gauge / histogram).
