@@ -20,6 +20,8 @@ Aplicación Web
 
 ├── cAdvisor (contenedores / recursos)
 
+├── Nginx (capa web)
+
 └── Process Exporter (procesos)
 
 │
@@ -110,5 +112,7 @@ MySQL Exporter → estado de la base de datos
 cAdvisor → uso de recursos y contenedores
 
 Process Exporter → procesos activos
+
+Nginx Exporter → coneciones y peticiones HTTP
 
 Se han utilizado principalmente los puertos por defecto de cada exporter. Se descartaron otros exporters ya que no eran utiles para nuestro caso.
