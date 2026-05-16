@@ -13,6 +13,7 @@ Aplicación web de gestión de componentes construida sobre Node.js, tiene una b
 Sus métricas son recogidas automáticamente por Prometheus y visualizadas en dashboards de Grafana.
 
 **Endpoints:**
+
     - Comunicación cliente servidor
     - Base de datos
     - Proxy
