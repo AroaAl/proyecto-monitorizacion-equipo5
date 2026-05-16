@@ -12,6 +12,14 @@
 Aplicación web de gestión de componentes construida sobre Node.js, tiene una base de datos MariaDB y un servidor Apache.
 Sus métricas son recogidas automáticamente por Prometheus y visualizadas en dashboards de Grafana.
 
+    **Endpoints:**
+    - Comunicación cliente servidor
+    - Base de datos
+    - Proxy
+    - Métricas a desarrollar
+
+Serviría para controlar y administrar el inventario de piezas o componentes de una organización, permitiendo registrar, consultar, actualizar y eliminar componentes del catálogo con toda su información asociada.
+
 # Arquitectura
 Aplicación Web
 │
