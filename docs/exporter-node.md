@@ -86,23 +86,21 @@ Como es un contador que siempre aumenta, casi nunca se usa solo. Se utiliza con 
 
 Fórmula común: 
 
-1 avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+1. avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
 
 2. node_memory_MemTotal_bytes
 
 ``` Tipo: Gauge ```
-
-``` Es un valor absoluto que representa la cantidad total de memoria física en el nodo. Aunque técnicamente es un valor que no suele cambiar (a menos que añadas RAM física o cambies la configuración de una VM), se clasifica como Gauge porque representa un "estado" o una medición instantánea, no una acumulación de eventos.
-Sirve como base para calcular porcentajes de uso de memoria. ```
+Es un valor absoluto que representa la cantidad total de memoria física en el nodo. Aunque técnicamente es un valor que no suele cambiar (a menos que añadas RAM física o cambies la configuración de una VM), se clasifica como Gauge porque representa un "estado" o una medición instantánea, no una acumulación de eventos.
+Sirve como base para calcular porcentajes de uso de memoria. 
 
 3. node_memory_MemAvailable_bytes
 
 Tipo: Gauge.
-
-``` El valor fluctúa constantemente dependiendo de la carga de trabajo del sistema. Sube cuando se liberan procesos y baja cuando el sistema consume más memoria.
+El valor fluctúa constantemente dependiendo de la carga de trabajo del sistema. Sube cuando se liberan procesos y baja cuando el sistema consume más memoria.
 A diferencia de node_memory_MemFree_bytes (que solo mide la memoria que no tiene absolutamente nada), MemAvailable es más precisa para alertas, ya que estima cuánta memoria hay realmente disponible para nuevos procesos, incluyendo la memoria que se puede liberar de cachés o buffers.
 Mide el rendimiento del sistema operativo y hardware.
-Es útil monitorizarla para evitar sobrecargas o puntos muertos. ```
+Es útil monitorizarla para evitar sobrecargas o puntos muertos. 
 
 ## Alerta:
 
