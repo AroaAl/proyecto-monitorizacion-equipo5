@@ -1,5 +1,5 @@
 # NGINX Prometheus Exporter
-# María Martínez
+## María Martínez
 
 ## ¿Qué es y para qué sirve?
 
