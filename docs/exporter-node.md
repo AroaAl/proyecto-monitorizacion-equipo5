@@ -86,7 +86,7 @@ Como es un contador que siempre aumenta, casi nunca se usa solo. Se utiliza con 
 
 Fórmula común: 
 
-1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
+1 avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
 
 2. node_memory_MemTotal_bytes
 
