@@ -8,6 +8,10 @@
 - JAVIER MOHINO experto en MySQL Exporter
   
 # Descripción de la aplicación monitorizada
+
+Aplicación web de gestión de componentes construida sobre Node.js, tiene una base de datos MariaDB y un servidor Apache.
+Sus métricas son recogidas automáticamente por Prometheus y visualizadas en dashboards de Grafana.
+
 # Arquitectura
 Aplicación Web
 │
