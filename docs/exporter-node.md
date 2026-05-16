@@ -81,9 +81,10 @@ Las tres métricas relevantes que ofrece:
 ## Tipo (counter / gauge / histogram).
 1. node_cpu_seconds_total
 ``` Tipo: Counter ```
-``` Representa el tiempo total que la CPU ha pasado en un modo específico desde que se inició el sistema. 
-Como es un contador que siempre aumenta, casi nunca se usa solo. Se utiliza con la función rate() para calcular el porcentaje de uso de CPU. ```
-
+```
+Representa el tiempo total que la CPU ha pasado en un modo específico desde que se inició el sistema. 
+Como es un contador que siempre aumenta, casi nunca se usa solo. Se utiliza con la función rate() para calcular el porcentaje de uso de CPU. 
+```
 Fórmula común: 
 
 1 avg(rate(node_cpu_seconds_total{mode="idle"}[5m]))
