@@ -4,9 +4,7 @@
 
 ## ¿Qué es y para qué sirve?
 
-Componente del ecosistema Prometheus que sirve para recopilar métricas detalladas de hardware y SO. Aporta visibilidad profunda sobre el rendimiento de hardware y sistemas operativos. 
-Es un exporter oficial de prometheus y sirve para exponer métricas del hardware y sistemas operativo en donde está instalado
-¿Cómo se instala y configura? Comandos exactos y archivo de configuración mínimo. Indica la versión.
+Este exporter pertenece al ecosistema de Prometheus y sirve para obtener métricas del hardware y del sistema operativo del equipo donde está instalado. Permite monitorizar datos como CPU, memoria, disco o red para conocer el estado y rendimiento del sistema. Además, es un exporter oficial de Prometheus y facilita que esas métricas puedan visualizarse y supervisarse fácilmente.
 
 Paso 1: Creación del usuario de sistema
 ```
