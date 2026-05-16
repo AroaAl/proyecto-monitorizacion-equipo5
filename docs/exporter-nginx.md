@@ -1,3 +1,4 @@
+# María Martínez
 # NGINX Prometheus Exporter
 
 ## ¿Qué es y para qué sirve?
@@ -130,3 +131,9 @@ sudo systemctl status prometheus
 Si la tasa de peticiones HTTP procesadas por nginx cae por debajo de un límite mínimo esperado de forma continua durante 3 minutos, se disparará una alerta de "Caída del servicio web".
 
 Esto indicaría que nginx ha dejado de recibir o procesar peticiones con normalidad, lo que puede ser síntoma de una caída del servicio, un problema de red, un reinicio inesperado del proceso o un fallo en el balanceador de carga que está dejando de enrutar tráfico hacia el servidor.
+
+---
+
+## Limitaciones
+
+ No soporta configuración dinámica sin recarga, por lo que si modificas la configuración, necesitas recargar o reiniciar el proceso para aplicar los cambios
