@@ -14,10 +14,10 @@ Sus métricas son recogidas automáticamente por Prometheus y visualizadas en da
 
 **Endpoints:**
 
-    - Comunicación cliente servidor
-    - Base de datos
-    - Proxy
-    - Métricas a desarrollar
+- Comunicación cliente servidor
+- Base de datos
+- Proxy
+- Métricas a desarrollar
 
 Serviría para controlar y administrar el inventario de piezas o componentes de una organización, permitiendo registrar, consultar, actualizar y eliminar componentes del catálogo con toda su información asociada.
 
