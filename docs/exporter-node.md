@@ -68,14 +68,15 @@ Exposición de métricas: Acceder a http://localhost:9100/metrics. Se debe visua
 Panel de Prometheus: En la interfaz web (http://localhost:9090), ir a Status -> Targets. El nodo debe aparecer con el estado UP.
 
 
-## Resolución de Problemas (Troubleshooting).
+## Resolución de Problemas (Troubleshooting) y métricas.
 
 Error 217 (USER): El servicio falla si el usuario definido en el archivo .service no existe en el sistema. Se soluciona con useradd.
 Error 203 (EXEC): El servicio no encuentra el archivo ejecutable. Se soluciona verificando que el binario esté en /usr/local/bin/ y tenga permisos de ejecución (chmod +x).
 El puerto al que expone métricas es el por defecto: 9100 y es configurable.
 
 Las tres métricas relevantes que ofrece:
-``` node_cpu_seconds_total ```
+``` node_cpu_seconds_total 
+```
 ``` node_memory_MemAvailable_bytes ```
 ``` node_memory_MemTotal_bytes ```
 ## Tipo (counter / gauge / histogram).
