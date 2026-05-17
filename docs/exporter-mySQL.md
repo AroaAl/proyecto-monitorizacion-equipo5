@@ -1,26 +1,42 @@
-# MySQL Exporter
+# MySQL Exporter - Javier Mohino
 
 ## ¿Qué es y para qué sirve?
 
-Es una herramienta de monitorización que permite recopilar métricas de bases de datos MySQL para Prometheus.
+MySQL Exporter es una herramienta que permite recopilar métricas de servidores MySQL y exponerlas en un formato compatible con Prometheus.
 
-Su principal función es monitorizar el rendimiento, conexiones, consultas y estado general del servidor MySQL.
+Su principal función es monitorizar el estado, rendimiento, conexiones y consultas de bases de datos MySQL en tiempo real.
 
 ---
 
 # ¿Cómo se instala y configura?
 
-## Ejecutar MySQL Exporter con Docker
+## 1. Ejecutar MySQL Exporter con Docker
 
 ```bash
 sudo docker run -d \
   --name=mysql-exporter \
   -p 9104:9104 \
-  -e DATA_SOURCE_NAME="usuario:contraseña@(IP_MYSQL:3306)/" \
+  -e DATA_SOURCE_NAME="usuario:contraseña@(127.0.0.1:3306)/" \
   prom/mysqld-exporter
 ```
 
-## Configuración con Prometheus
+---
+
+## 2. Verificar que funciona
+
+```bash
+sudo docker ps
+```
+
+Comprobar métricas:
+
+```bash
+curl http://127.0.0.1:9104/metrics
+```
+
+---
+
+## 3. Configurar Prometheus
 
 Editar el archivo:
 
@@ -28,30 +44,20 @@ Editar el archivo:
 sudo nano /etc/prometheus/prometheus.yml
 ```
 
-Añadir:
+Añadir el job:
 
 ```yaml
-# MySQL Exporter
-- job_name: 'mysql'
-  static_configs:
-    - targets:
-        - '127.0.0.1:9104'
+scrape_configs:
+  - job_name: "mysql"
+    static_configs:
+      - targets: ["localhost:9104"]
 ```
 
 Reiniciar Prometheus:
 
 ```bash
 sudo systemctl restart prometheus
-```
-
----
-
-# Puerto por defecto
-
-Puerto por defecto:
-
-```text
-9104
+sudo systemctl status prometheus
 ```
 
 ---
@@ -66,7 +72,7 @@ Puerto por defecto:
 Número de conexiones activas en MySQL.
 
 **Por qué es útil:**  
-Permite detectar demasiadas conexiones simultáneas.
+Permite detectar exceso de conexiones simultáneas.
 
 ---
 
@@ -78,7 +84,7 @@ Permite detectar demasiadas conexiones simultáneas.
 Cantidad total de consultas ejecutadas.
 
 **Por qué es útil:**  
-Ayuda a analizar la carga de trabajo del servidor.
+Ayuda a analizar la carga de trabajo de la base de datos.
 
 ---
 
@@ -90,7 +96,7 @@ Ayuda a analizar la carga de trabajo del servidor.
 Número de consultas lentas ejecutadas.
 
 **Por qué es útil:**  
-Permite detectar problemas de rendimiento en la base de datos.
+Permite detectar problemas de rendimiento en MySQL.
 
 ---
 
@@ -106,11 +112,11 @@ Ayuda a detectar reinicios inesperados del servicio.
 
 ---
 
-# Alertas
+# Ejemplo de alerta
 
-Una alerta útil sería:
+Si el número de consultas lentas supera 10 durante más de 5 minutos, se disparará una alerta de "Bajo rendimiento en MySQL".
 
-> Si el número de consultas lentas supera 10 durante 5 minutos, enviar una alerta de bajo rendimiento en MySQL.
+Esto indicaría que la base de datos está tardando demasiado en responder y podría afectar al funcionamiento de las aplicaciones conectadas.
 
 ---
 
