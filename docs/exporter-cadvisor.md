@@ -1,16 +1,16 @@
-# cAdvisor - Javier Torre Nuñez
+# cAdvisor - Javier Torre Núñez
 
 ## ¿Qué es y para qué sirve?
 
-Es una herramienta de monitorización creada por Google que permite analizar el uso de recursos y el rendimiento de los contenedores Docker.
+cAdvisor es una herramienta creada por Google que permite monitorizar contenedores Docker y recopilar métricas sobre el uso de recursos del sistema.
 
-Su principal función es monitorizar CPU, memoria, red y disco de los contenedores en tiempo real.
+Expone métricas compatibles con Prometheus, permitiendo supervisar CPU, memoria, red y almacenamiento de los contenedores en tiempo real.
 
 ---
 
 # ¿Cómo se instala y configura?
 
-## Ejecutar cAdvisor con Docker
+## 1. Ejecutar cAdvisor con Docker
 
 ```bash
 sudo docker run -d \
@@ -25,7 +25,27 @@ sudo docker run -d \
   gcr.io/cadvisor/cadvisor:latest
 ```
 
-## Configuración con Prometheus
+## 2. Verificar que funciona
+
+```bash
+sudo docker ps
+```
+
+Comprobar desde el navegador:
+
+```text
+http://127.0.0.1:8080
+```
+
+Verificar métricas:
+
+```bash
+curl http://127.0.0.1:8080/metrics
+```
+
+---
+
+## 3. Configurar Prometheus
 
 Editar el archivo:
 
@@ -33,30 +53,20 @@ Editar el archivo:
 sudo nano /etc/prometheus/prometheus.yml
 ```
 
-Añadir:
+Añadir el job:
 
 ```yaml
-# cAdvisor
-- job_name: 'cadvisor'
-  static_configs:
-    - targets:
-        - '127.0.0.1:8080'
+scrape_configs:
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["localhost:8080"]
 ```
 
 Reiniciar Prometheus:
 
 ```bash
 sudo systemctl restart prometheus
-```
-
----
-
-# Puerto por defecto
-
-Puerto por defecto:
-
-```text
-8080
+sudo systemctl status prometheus
 ```
 
 ---
@@ -68,10 +78,10 @@ Puerto por defecto:
 **Tipo:** Counter
 
 **Qué mide:**  
-Uso total de CPU del contenedor.
+Tiempo total de CPU utilizado por un contenedor.
 
 **Por qué es útil:**  
-Permite detectar contenedores con alto consumo de CPU.
+Permite detectar contenedores con consumo elevado de CPU.
 
 ---
 
@@ -80,10 +90,10 @@ Permite detectar contenedores con alto consumo de CPU.
 **Tipo:** Gauge
 
 **Qué mide:**  
-Memoria RAM utilizada por el contenedor.
+Cantidad de memoria RAM utilizada por un contenedor.
 
 **Por qué es útil:**  
-Ayuda a detectar consumo excesivo de memoria.
+Ayuda a detectar fugas de memoria o consumo excesivo.
 
 ---
 
@@ -92,10 +102,10 @@ Ayuda a detectar consumo excesivo de memoria.
 **Tipo:** Counter
 
 **Qué mide:**  
-Cantidad de datos recibidos por red.
+Cantidad total de datos recibidos por red.
 
 **Por qué es útil:**  
-Permite monitorizar el tráfico de entrada.
+Permite monitorizar el tráfico de entrada del contenedor.
 
 ---
 
@@ -107,20 +117,20 @@ Permite monitorizar el tráfico de entrada.
 Espacio en disco utilizado por el contenedor.
 
 **Por qué es útil:**  
-Evita problemas por falta de almacenamiento.
+Ayuda a evitar problemas por falta de almacenamiento.
 
 ---
 
-# Alertas
+# Ejemplo de alerta
 
-Una alerta útil sería:
+Si el uso de memoria de un contenedor supera el 80% durante más de 5 minutos, se disparará una alerta de "Alto consumo de memoria".
 
-> Si el uso de memoria de un contenedor supera el 80% durante 5 minutos, enviar una alerta de alto consumo de memoria.
+Esto indicaría que el contenedor está utilizando demasiados recursos y podría afectar al rendimiento del servidor o provocar caídas de la aplicación.
 
 ---
 
 # Limitaciones
 
-cAdvisor monitoriza recursos de contenedores, pero no analiza directamente el estado interno de las aplicaciones.
+cAdvisor monitoriza recursos de contenedores, pero no analiza directamente el funcionamiento interno de las aplicaciones.
 
-Además, en entornos con muchos contenedores puede generar una gran cantidad de métricas.
+Además, en entornos con muchos contenedores puede generar una gran cantidad de métricas y aumentar el consumo de recursos del sistema.
