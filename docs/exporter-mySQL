@@ -1,1 +1,121 @@
+# MySQL Exporter - Javier Mohino
 
+## ¿Qué es y para qué sirve?
+
+Es una herramienta de monitorización que permite recopilar métricas de bases de datos MySQL para Prometheus.
+
+Su principal función es monitorizar el rendimiento, conexiones, consultas y estado general del servidor MySQL.
+
+---
+
+# ¿Cómo se instala y configura?
+
+## Ejecutar MySQL Exporter con Docker
+
+```bash
+sudo docker run -d \
+  --name=mysql-exporter \
+  -p 9104:9104 \
+  -e DATA_SOURCE_NAME="usuario:contraseña@(IP_MYSQL:3306)/" \
+  prom/mysqld-exporter
+```
+
+## Configuración con Prometheus
+
+Editar el archivo:
+
+```bash
+sudo nano /etc/prometheus/prometheus.yml
+```
+
+Añadir:
+
+```yaml
+# MySQL Exporter
+- job_name: 'mysql'
+  static_configs:
+    - targets:
+        - '127.0.0.1:9104'
+```
+
+Reiniciar Prometheus:
+
+```bash
+sudo systemctl restart prometheus
+```
+
+---
+
+# Puerto por defecto
+
+Puerto por defecto:
+
+```text
+9104
+```
+
+---
+
+# Métricas principales
+
+## mysql_global_status_threads_connected
+
+**Tipo:** Gauge
+
+**Qué mide:**  
+Número de conexiones activas en MySQL.
+
+**Por qué es útil:**  
+Permite detectar demasiadas conexiones simultáneas.
+
+---
+
+## mysql_global_status_queries
+
+**Tipo:** Counter
+
+**Qué mide:**  
+Cantidad total de consultas ejecutadas.
+
+**Por qué es útil:**  
+Ayuda a analizar la carga de trabajo del servidor.
+
+---
+
+## mysql_global_status_slow_queries
+
+**Tipo:** Counter
+
+**Qué mide:**  
+Número de consultas lentas ejecutadas.
+
+**Por qué es útil:**  
+Permite detectar problemas de rendimiento en la base de datos.
+
+---
+
+## mysql_global_status_uptime
+
+**Tipo:** Counter
+
+**Qué mide:**  
+Tiempo que MySQL lleva funcionando.
+
+**Por qué es útil:**  
+Ayuda a detectar reinicios inesperados del servicio.
+
+---
+
+# Alertas
+
+Una alerta útil sería:
+
+> Si el número de consultas lentas supera 10 durante 5 minutos, enviar una alerta de bajo rendimiento en MySQL.
+
+---
+
+# Limitaciones
+
+MySQL Exporter monitoriza métricas del servidor MySQL, pero no analiza directamente el contenido de las consultas ni optimiza automáticamente el rendimiento.
+
+Además, en bases de datos muy grandes puede generar una gran cantidad de métricas.
