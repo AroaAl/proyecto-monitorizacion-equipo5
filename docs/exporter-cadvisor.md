@@ -1,6 +1,4 @@
-Javier Torre Nuñez
-
-# cAdvisor
+# cAdvisor - Javier Torre Nuñez
 
 ## ¿Qué es y para qué sirve?
 
